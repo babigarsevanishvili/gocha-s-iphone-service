@@ -388,7 +388,7 @@ span{
     transform: translateY(0);
 }
 .action_wrapper .action:hover {
-  background: hsl(197, 82%, 35%);
+  background: rgb(60, 159, 172);
   color: rgb(3, 16, 29);
 }
 
@@ -517,7 +517,7 @@ span{
     }
 
       .btn-primary:hover {
-      background: hsl(197, 82%, 35%);
+      background: rgb(60, 159, 172);
         color:white;
     }
   

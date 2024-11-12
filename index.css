@@ -107,7 +107,9 @@ a {
   height: 32px;
   
 }
-
+.logo {
+  cursor: pointer;
+}
 .nav__burger, 
 .nav__close {
   position: absolute;
@@ -368,7 +370,7 @@ span{
   
 }
 .action_wrapper .action:hover {
-  background: hsl(197, 82%, 35%);
+  background: rgb(60, 159, 172);
   color: rgb(3, 16, 29);
 }
 
@@ -538,12 +540,61 @@ textarea::placeholder {
   }
 }
 
+
 /*=============== REPAIR SECTION ===============*/
 .repair-section {
   padding: 5rem 0;
   background-color: var(--body-color);
 }
+ /* Custom Alert Styles */
+ .custom-alert {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s, visibility 0.3s;
+}
 
+.custom-alert.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.custom-alert-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 300px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.custom-alert-content p {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+#alertCloseButton {
+  padding: 8px 16px;
+  border: none;
+  background-color: #007BFF;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#alertCloseButton:hover {
+  background-color: #0056b3;
+}
 .repair-header 
 {
   text-align: center;
@@ -624,7 +675,7 @@ textarea::placeholder {
 
 .btn:hover {
   color: white;
-  background-color: hsl(197, 82%, 35%);
+  background-color: rgb(60, 159, 172);
 }
  /* faq container  */
  .faq-container {

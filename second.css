@@ -390,7 +390,7 @@ span{
 }
 
 .action_wrapper .action:hover {
-  background: hsl(197, 82%, 35%);
+  background: rgb(60, 159, 172);
   color: rgb(3, 16, 29);
 }
       .menu-toggle {
@@ -404,7 +404,7 @@ span{
       /* Main Content Styles */
       .main-content {
           margin-top: 60px;
-          padding-top: 33px ;
+          padding: 2rem ;
           transition: margin-left 0.3s ease;
       }
 
@@ -522,7 +522,7 @@ span{
       }
 
       .btn-primary:hover {
-        background: hsl(197, 82%, 35%);
+        background: rgb(60, 159, 172);
          
           color:white;
       }

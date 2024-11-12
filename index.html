@@ -16,7 +16,9 @@
    <header class="header">
       <nav class="nav container">
          <div class="nav__data">
-            <img src="./img/rame.png" alt="Gochas's iPhone Service" class="logo" width="" height="90">
+          <a href="#top" onclick="scrollToTop()">
+             <img src="./img/rame.png" alt="Gochas's iPhone Service" class="logo" width="" height="90">
+          </a>
             <div class="nav__toggle" id="nav-toggle">
                <i class="ri-menu-line nav__burger"></i>
                <i class="ri-close-line nav__close"></i>
@@ -38,7 +40,7 @@
                 <ul class="dropdown__menu">
                    <li>
                       <a href="https://www.google.com/maps/place/gochas.iphone.service/@41.7229742,44.7950772,17z/data=!3m1!4b1!4m6!3m5!1s0x4044738532feaff5:0x88b901fc385e387b!8m2!3d41.7229742!4d44.7950772!16s%2Fg%2F11hywc3x5_?hl=ka-GE&entry=ttu&g_ep=EgoyMDI0MTAyOS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="dropdown__link">
-                         <ion-icon name="location-outline"></ion-icon> Giorgi tsabadzis 19
+                         <ion-icon name="location-outline"></ion-icon width=15px height=15px>Giorgi tsabadzis 19
                       </a>
                    </li>
 
@@ -98,7 +100,7 @@
 
                <div class="action_wrapper">
                   <li>
-                    <a href="#" class="nav__link">Contact <span>
+                    <a href="#" class="nav__link">Contact<span>
                         <button class="action" onclick="copyNumber()" >
                             <ion-icon class="phone" name="call-outline">
                         </ion-icon>533-33-22-34</button></span></a></li>
@@ -127,6 +129,15 @@
           </div>
       </div>
   </div>
+
+
+<!-- Custom Alert Modal -->
+<div class="custom-alert" id="customAlert">
+  <div class="custom-alert-content">
+      <p id="alertMessage"></p>
+      <button id="alertCloseButton">OK</button>
+  </div>
+</div>
 
    <section class="repair-section">
       <div class="repair-header">
@@ -309,7 +320,10 @@ const showMenu = (toggleId, navId) =>{
     })
     
  }
- 
+//  logoze dachera //
+ function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
  
  showMenu('nav-toggle','nav-menu')
 
@@ -371,23 +385,158 @@ faqItems.forEach((item) => {
     item.classList.toggle('active');
   });
 });
+  // Select all slides and dots
+  var slides = document.getElementsByClassName("testimonial-slide");
+        var dots = document.getElementsByClassName("dot");
+        var slideIndex = 2; // Start with the third slide
+        var slideProgress = document.querySelector('.slide-progress');
+        var autoSlideInterval;
+        var slideDuration = 5000; // 5 seconds per slide
 
+        // Initial slide setup
+        showSlide(slideIndex);
+        startAutoSlide();
+
+        // Change slide function
+        function changeSlide(n) {
+            // Clear existing interval and restart
+            clearInterval(autoSlideInterval);
+            showSlide(slideIndex += n);
+            startAutoSlide();
+        }
+
+        // Go to specific slide
+        function currentSlide(n) {
+            // Clear existing interval and restart
+            clearInterval(autoSlideInterval);
+            showSlide(slideIndex = n);
+            startAutoSlide();
+        }
+
+        // Start auto sliding
+        function startAutoSlide() {
+            // Reset progress bar
+            
+
+            autoSlideInterval = setInterval(function() {
+                // Animate progress bar
+                var width = 0;
+                var progressInterval = setInterval(function() {
+                    if (width >= 100) {
+                        clearInterval(progressInterval);
+                        changeSlide(1); // Move to next slide
+                    } else {
+                        width++;
+                        
+                    }
+                }, slideDuration / 100);
+            }, slideDuration);
+        }
+
+        // Show specific slide
+        function showSlide(n) {
+            // Handle circular sliding
+            if (n > slides.length) {
+                slideIndex = 1;
+            }
+            if (n < 1) {
+                slideIndex = slides.length;
+            }
+
+            // Hide all slides and remove active class
+            for (var i = 0; i < slides.length; i++) {
+                slides[i].classList.remove("active");
+                dots[i].classList.remove("active");
+            }
+
+            // Show current slide and set active dot
+            slides[slideIndex - 1].classList.add("active");
+            dots[slideIndex - 1].classList.add("active");
+        }
+
+        // Pause auto-slide on hover
+        document.getElementById('testimonials').addEventListener('mouseenter', function() {
+            clearInterval(autoSlideInterval);
+           
+        });
+
+        document.getElementById('testimonials').addEventListener('mouseleave', function() {
+            startAutoSlide();
+        });
 
       //  language changer//
+      function changeLanguage(lang) {
+    const selectedLang = document.getElementById('lang-select');
+    const langText = lang === 'ka' ? 'ქართული' : 'English';
+    const flagUrl = lang === 'ka' ? 'https://flagsapi.com/GE/flat/24.png' : 'https://flagsapi.com/US/flat/24.png';
+    
+    // Update flag and text in selected language display
+    selectedLang.innerHTML = `<img src="${flagUrl}" alt="${langText} Flag"> ${lang === 'ka' ? 'KA' : 'EN'}`;
 
-        function changeLanguage(lang) 
-        {
-      const selectedLang = document.getElementById('lang-select');
-      const langText = lang === 'ka' ? 'Georgian' : 'English';
-      const flagUrl = lang === 'ka' ? 'https://flagsapi.com/GE/flat/24.png' : 'https://flagsapi.com/US/flat/24.png';
-      
-      // Update flag and text in selected language display
-      selectedLang.innerHTML = `<img src="${flagUrl}" alt="${langText} Flag"> ${lang === 'ka' ? 'KA' : 'EN'}`;
+    // Navigation menu items
+    const navLinks = document.querySelectorAll('.nav__link');
+    navLinks[0].textContent = lang === 'ka' ? 'შეკეთება' : 'Repair';
+    navLinks[1].textContent = lang === 'ka' ? 'მთავარი' : 'Home';
+    navLinks[2].textContent = lang === 'ka' ? 'მაღაზია' : 'store';
 
-      // Switch content based on language (simple example)
-      document.querySelector('h1').textContent = lang === 'ka' ? 'შეკეთება თქვენი აიფონის' : 'Repair Your iPhone';
-      // Add more elements to change based on selected language
-  }
+    // Dropdown menu items
+
+    // Set the overlay language
+    document.getElementById('copiedMessage').textContent = lang === 'ka' ? 'დაკოპირებულია!' : 'Copied!';
+
+    // Hero section text
+    document.querySelector('h1').textContent = lang === 'ka' ? 'შეაკეთე შენი აიფონი' : 'Repair Your iPhone';
+    document.querySelector('.btn-Repair').textContent = lang === 'ka' ? 'გაგზავნა' : 'Send';
+    document.querySelector('.btn-more').textContent = lang === 'ka' ? 'მეტი' : 'More';
+
+    // Repair Section Headers
+    document.querySelector('.repair-header h2').textContent = lang === 'ka' ? 'არასდროს მიიღოთ გატეხილი' : 'Never take broken for an answer';
+    document.querySelector('.repair-header p').textContent = lang === 'ka' ? 'მიიღეთ ინსტრუქციები ხარისხიანი ნაწილებით და ჩვენი გამოცდილების საშუალებით.' : 'Get the instructions you need with quality repair parts and tools and the expertise of a robust community.';
+
+    // Repair Section Cards
+    const repairCards = document.querySelectorAll('.repair-card h3');
+    repairCards[0].textContent = lang === 'ka' ? 'ყველა iPhone-სთვის' : 'About Every iPhone';
+    repairCards[1].textContent = lang === 'ka' ? 'ყველა MacOS-ისთვის' : 'For Every MacOS';
+    repairCards[2].textContent = lang === 'ka' ? 'შემსწორებელთა საზოგადოების' : 'A Community of Fixers';
+
+    const repairCardTexts = document.querySelectorAll('.repair-card p');
+    repairCardTexts[0].textContent = lang === 'ka' ? 'სწრაფი და ხარისხიანი სარემონტო ინსტრუქციები.' : 'Learn where to fix fastest with best quality.';
+    repairCardTexts[1].textContent = lang === 'ka' ? 'შექმნილი სიზუსტის ინსტრუმენტების და ხარისხიანი ნაწილების გარანტიით.' : 'Precision tools and thousands of parts to get the job done, backed by our Lifetime Guarantee.';
+    repairCardTexts[2].textContent = lang === 'ka' ? 'არავინ იცის ყველაფრის შეკეთება, მაგრამ ყველამ იცის რაღაცის შეკეთება.' : 'No one knows how to fix everything, but everyone knows how to fix something.';
+
+    const repairCardLinks = document.querySelectorAll('.repair-card .btn');
+    repairCardLinks[0].textContent = lang === 'ka' ? 'თქვენი iPhone პრობლემის შეკეთება' : 'Fix Your iPhone Problem';
+    repairCardLinks[1].textContent = lang === 'ka' ? 'თქვენი MacOS პრობლემის შეკეთება' : 'Fix Your MacOS Problem';
+    repairCardLinks[2].textContent = lang === 'ka' ? 'შეაკეთეთ მსოფლიო' : 'Fix the World';
+
+    // FAQ Section
+    const faqQuestions = document.querySelectorAll('.faq-question h3');
+    faqQuestions[0].textContent = lang === 'ka' ? 'რომელ მოწყობილობებს შეაკეთებთ?' : 'What types of devices do you repair?';
+    faqQuestions[1].textContent = lang === 'ka' ? 'რომელ ბრენდებზე და მოდელებზე მუშაობთ?' : 'What brands and models do you work on?';
+    faqQuestions[2].textContent = lang === 'ka' ? 'რამდენი დრო სჭირდება რემონტს?' : 'How long does a typical repair take?';
+    faqQuestions[3].textContent = lang === 'ka' ? 'მჭირდება თუ არა შეხვედრა?' : 'Do I need an appointment for a repair?';
+    faqQuestions[4].textContent = lang === 'ka' ? 'რა ღირს რემონტი?' : 'What are your repair prices?';
+
+    const faqAnswers = document.querySelectorAll('.faq-answer p');
+    faqAnswers[0].textContent = lang === 'ka' ? 'ჩვენ სპეციალიზირებულები ვართ აიფონის, მობილური ტელეფონის და კომპიუტერის შეკეთებაში.' : 'We specialize in iPhone repair, cell phone repair, and computer repair.';
+    faqAnswers[1].textContent = lang === 'ka' ? 'მუშაობთ ფართო ბრენდებზე და მოდელებზე.' : 'We work on a wide range of brands and models.';
+    faqAnswers[2].textContent = lang === 'ka' ? 'შეკეთების დრო დამოკიდებულია პრობლემის ხარისხზე და ნაწილების ხელმისაწვდომობაზე.' : 'The time required for a repair can vary depending on the issue.';
+    faqAnswers[3].textContent = lang === 'ka' ? 'მიუხედავად იმისა, რომ სიარული მისაღებია, ჩვენ გირჩევთ დანიშვნას.' : 'While walk-ins are welcome, we do recommend making an appointment.';
+    faqAnswers[4].textContent = lang === 'ka' ? 'ჩვენი რემონტის ფასები კონკურენტუნარიანია.' : 'Our repair prices are competitive and transparent.';
+
+    // Testimonials Section Header
+    document.querySelector('#testimonials h1').textContent = lang === 'ka' ? 'რას ამბობენ ჩვენი კლიენტები' : 'What Our Clients Are Saying';
+
+    // Footer links
+    const footerNavLinks = document.querySelectorAll('.footerNav ul li a');
+    footerNavLinks[0].textContent = lang === 'ka' ? 'მთავარი' : 'Home';
+    footerNavLinks[1].textContent = lang === 'ka' ? 'ახალი ამბები' : 'News';
+    footerNavLinks[2].textContent = lang === 'ka' ? 'ჩვენს შესახებ' : 'About';
+    footerNavLinks[3].textContent = lang === 'ka' ? 'კონტაქტი' : 'Contact Us';
+    footerNavLinks[4].textContent = lang === 'ka' ? 'ჩვენი გუნდი' : 'Our Team';
+
+}
+
 
 // მენიუს toggle ფუნქცია
 const navMenu = document.querySelector('.nav__menu');
