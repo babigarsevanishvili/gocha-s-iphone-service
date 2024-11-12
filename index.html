@@ -10,8 +10,20 @@
    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
    <title>Gocha's iPhone Service</title>
+   <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init({
+        publicKey: "RU4moXlClJjxUNo7c",
+      });
+   })();
+</script>
 </head>
+
 <body>
+</div>
    <!--=============== HEADER ===============-->
    <header class="header">
       <nav class="nav container">
@@ -122,7 +134,7 @@
                           <label for="message"></label>
                           <textarea id="message" name="message" rows="4" cols="50" placeholder="Type your message here..."></textarea>
                       </form>
-                      <button class="btn-Repair">Send</button>
+                      <button class="btn-Repair" onclick="sendEmail()">Send</button>
                       <button class="btn-more">More</button>
                   </div>
               </div>
@@ -130,6 +142,10 @@
       </div>
   </div>
 
+
+  <div id="customAlert" class="custom-alert">
+    თქვენი მესიჯი გაგზავნილია!
+</div>
 
 <!-- Custom Alert Modal -->
 <div class="custom-alert" id="customAlert">
@@ -347,32 +363,35 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
  // form ფორმის მიმღები  //
- const contactForm = document.querySelector('.booking_card form');
-const sendButton = document.querySelector('.booking_card .btn-Repair');
+   function sendEmail(){
+    let parms = {
+      message : document.getElementById("message").value,
+    }
+    emailjs.send("service_bo48jie","template_c3vo45g",parms).then(alert("message Sent"));
+   }
+   async function sendEmail() {
+    try {
+        console.log("მეილის გაგზავნა მესიჯით:",params.message);
 
-// Add a click event listener to the send button
-sendButton.addEventListener('click', (event) => {
-  event.preventDefault(); // Prevent the default button behavior
+        // ვთქვათ, რომ emailService.send არის ფუნქცია, რომელსაც მეილის გასაგზავნად იყენებთ
+        await emailService.send(params);
+        
+        console.log("მეილი წარმატებით გაიგზავნა!");
 
-  // Get the message from the textarea
-  const message = document.getElementById('message').value;
+        // გასუფთავეთ ტექსტური ველი
+        messageTextarea.value = "";
+        messageTextarea.focus();
 
-  // Send the message to the email address
-  sendEmailToRecipient(message, 'bgarsevanishvili243@gmail.com');
-
-  // Show an alert message based on the language
-  if (document.documentElement.lang === 'en') {
-    alert('Your message has been sent!');
-  } else {
-    alert('თქვენი მესიჯი გაგზავნილია!');
-  }
-});
-
-function sendEmailToRecipient(message, email) {
-  // This is a placeholder function, replace it with your actual email sending logic
-  console.log(`Sending message "${message}" to ${email}`);
+    } catch (error) {
+        if (error.status === 412) {
+            console.error("ავთენტიფიკაციის შეცდომა: არასაკმარისი ნებართვები.");
+            alert("მეილის გაგზავნა ვერ მოხერხდა არასაკმარისი ნებართვების გამო. გთხოვთ, შეამოწმოთ ავტორიზაციის პარამეტრები.");
+        } else {
+            console.error("მეილის გაგზავნა ვერ მოხერხდა:",error);
+            alert("მეილის გაგზავნისას შეცდომა მოხდა. გთხოვთ, სცადოთ თავიდან.");
+        }
+    }
 }
-
 // faq //
 const faqItems = document.querySelectorAll('.faq-item');
 
