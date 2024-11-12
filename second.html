@@ -615,34 +615,47 @@ faqItems.forEach((item) => {
             startAutoSlide();
         });
 
-//  language changer//
-
-function changeLanguage(lang) {
+      //  language changer//
+      // Function to change language and save preference
+      function changeLanguage(lang) {
+    // Save language preference to localStorage
+    localStorage.setItem('preferredLanguage', lang);
+    
     const selectedLang = document.getElementById('lang-select');
-    const langText = lang === 'ka' ? 'Georgian' : 'English';
+    const langText = lang === 'ka' ? 'ქართული' : 'English';
     const flagUrl = lang === 'ka' ? 'https://flagsapi.com/GE/flat/24.png' : 'https://flagsapi.com/US/flat/24.png';
-
+    
     // Update flag and text in selected language display
     selectedLang.innerHTML = `<img src="${flagUrl}" alt="${langText} Flag"> ${lang === 'ka' ? 'KA' : 'EN'}`;
-    
+    selectedLang.innerHTML = `<i class="ri-global-line"></i> <img src="${flagUrl}" alt="${langText} Flag"> ${lang === 'ka' ? 'KA' : 'EN'} <i class="ri-arrow-down-s-line dropdown__arrow"></i>`;
+
     // Navigation menu items
     const navLinks = document.querySelectorAll('.nav__link');
     navLinks[0].textContent = lang === 'ka' ? 'შეკეთება' : 'Repair';
     navLinks[1].textContent = lang === 'ka' ? 'მთავარი' : 'Home';
-    navLinks[2].textContent = lang === 'ka' ? 'მაღაზია' : 'store';
+    
+    const storeLink = navLinks[2];
+    const storeText = lang === 'ka' ? 'მაღაზია' : 'Store';
+    storeLink.innerHTML = `<i class="ri-store-2-line"></i> ${storeText} <i class="ri-arrow-down-s-line dropdown__arrow"></i>`;
 
-    // Dropdown menu items
-
+       // Update just the Contact text
+       const contactLink = document.querySelector('.action_wrapper .nav__link');
+    if (contactLink) {
+        const currentSpan = contactLink.querySelector('span');
+        contactLink.innerHTML = `${lang === 'ka' ? 'კონტაქტი' : 'Contact'}`;
+        if (currentSpan) {
+            contactLink.appendChild(currentSpan);
+        }
+    }
     // Set the overlay language
     document.getElementById('copiedMessage').textContent = lang === 'ka' ? 'დაკოპირებულია!' : 'Copied!';
-
     // Hero Section Translation
     document.querySelector('.hero-content h1').textContent = lang === 'ka' ?  'iPhone შეკეთება' : 'iPhone Repair';
     document.querySelectorAll('.hero-content p')[0].textContent = lang === 'ka' 
-        ? 'ყველაფერი, რაც გჭირდებათ თქვენი iPhone/MacOS-ის შესაკეთებლად, ახალი iPhone-იდან 2007 წელს გამოშვებული iPhone 2G-მდე.' 
+        ? 'ყველაფერი, რაც გჭირდებათ თქვენი iPhone/MacOS-ის შესაკეთებლად, დაწყებული ახალი iPhone-იდან, 2007 წელს გამოშვებული პირველი iPhone 2G ჩათვლით.' 
         : 'Everything you need to repair your iPhone/MacOS from the newest iPhone lineup, all the way back to the original iPhone 2G released in 2007.';
     document.querySelectorAll('.hero-content p')[1].textContent = lang === 'ka' 
-        ? '2008 წლიდან Gocha-ს iPhone Service წარმატებით მუშაობს Apple-ის ყველა პროდუქტზე..' 
+        ? '2008 წლიდან Gocha-ს iPhone Service წარმატებით მუშაობს Apple-ის ყველა პროდუქტზე.' 
         : 'Since 2008 Gocha\'s iPhone Service works for every single Apple Product.';
     document.querySelector('.hero-content .btn').textContent = lang === 'ka' ? 'შეაკეთე ნებისმიერი მოდელი' : 'FIX Everything';
 
@@ -671,8 +684,19 @@ function changeLanguage(lang) {
     footerNavLinks[2].textContent = lang === 'ka' ? 'ჩვენს შესახებ' : 'About';
     footerNavLinks[3].textContent = lang === 'ka' ? 'კონტაქტი' : 'Contact Us';
     footerNavLinks[4].textContent = lang === 'ka' ? 'ჩვენი გუნდი' : 'Our Team';
-
+   
 }
+
+// Function to load saved language preference
+function loadLanguagePreference() {
+    const savedLang = localStorage.getItem('preferredLanguage');
+    if (savedLang) {
+        changeLanguage(savedLang);
+    }
+}
+
+// Call loadLanguagePreference when the page loads
+document.addEventListener('DOMContentLoaded', loadLanguagePreference);
 
   
   // მენიუს toggle ფუნქცია
