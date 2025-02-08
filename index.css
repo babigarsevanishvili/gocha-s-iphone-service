@@ -641,7 +641,8 @@ textarea::placeholder {
 }
 
 .repair-card img {
-  width: 100%;
+  width: 90%;
+  display: flex;
   height: 200px;
   object-fit: cover;
   transition: transform 0.3s ease;
@@ -973,4 +974,22 @@ blockquote {
   .prev, .next {
       font-size: 20px;
   }
+}
+
+.lglg {
+  width: 100%; /* მთლიანი სიგანე */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff; /* მსუბუქი ფონური ფერი */
+  padding: 20px; /* სივრცე ზემოთ-ქვემოთ */
+}
+
+.lglg video {
+  width: 70%; /* სიგანე შემცირებული */
+  max-width: 900px; /* მაქსიმალური სიგანე */
+  height: auto; /* პროპორციული სიმაღლე */
+  border-radius: 20px; /* რბილი კუთხეები */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* ჩრდილი */
+  aspect-ratio: 16 / 7; /* ვიდეოს პროპორციული დაპატარავება */
 }
